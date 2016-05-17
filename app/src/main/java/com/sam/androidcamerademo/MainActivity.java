@@ -2,6 +2,7 @@ package com.sam.androidcamerademo;
 
 import android.content.pm.ActivityInfo;
 import android.graphics.ImageFormat;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,7 +10,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
-import android.hardware.Camera;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,13 +26,14 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_main);
 
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
-
-//        mSurfaceView.getHolder().setFixedSize(640, 480);
 
         mSurfaceView.getHolder().setKeepScreenOn(true);
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
                 try {
-                    mCamera = Camera.open(0);
+                    mCamera = Camera.open(1);
                     Camera.Parameters param = mCamera.getParameters();
                     param.setPreviewSize(1280, 720);
                     param.setPreviewFpsRange(10, 20);
@@ -77,4 +78,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }
